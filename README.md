@@ -109,6 +109,48 @@ const darkMode = ref(true/false)
 
 > Create Vue components
 > ```bash
-> mdkir ./components/Sidebar # Place the sidebar components
-> touch Left.vue # Left sidebar component
+> mdkir ./components/Sidebar/Left # Place the sidebar components
+> touch index.vue # Parent component in Left sidebar
+> touch Tab.vue # Subcomponents in Left sidebar
 
+7. Create animation effects
+> ```bash
+>mdkir ./composables
+>touch useTailwindConfig.js
+>
+># ./composables/useTailwindConfig.js
+>export default () => {
+>    return {
+>        defaultTransition: 'transition ease-in-out duration-350'
+>    }
+>}
+>
+># ./components/Left/index.vue
+>const { defaultTransition } = useTailwindConfig() # Registration component
+>:class="defaultTransition" # Using the component
+> ```
+
+8. Use heroicon for Vue
+>```
+># install heroicon for Vue
+>npm install @heroicons/vue
+>
+># using HomeIcon in ./components/Left/index.vue
+># import heroicons/vue
+>import { HomeIcon } from "@heroicons/vue/20/solid";
+># use HomeIcon
+><HomeIcon /> # Place in <div>
+>```
+
+9. Home Status
+>```bash
+># code in ./components/Sidebar/Left/Tab.vue
+>const props = defineProps({
+>    active: { # <SidebarLeftTab> in the parent component which in ./compents/Sidebar/Left/index.vue.
+>        type:Boolean,
+>        default:false
+>    }
+>})
+>
+>const textClasses = computed(() => props.active ? 'font-semibold' : 'font-normal') # <div> in the subcompent which in ./compents/Sidebar/Left/Tab.vue
+>```
