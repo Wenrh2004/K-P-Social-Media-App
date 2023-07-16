@@ -100,13 +100,13 @@ npx tailwindcss init
 const darkMode = ref(true/false)
 ```
 
-6. Create Sidebar
+6. Page Structure
 > ./app.vue  
 > * Left sidebar  
-> Left sidebar component `<SidebarLeft />`
 > * Main content  
 > * Right sidebar
 
+7. Left Sidebar Components
 > Create Vue components
 > ```bash
 > mdkir ./components/Sidebar/Left # Place the sidebar components
@@ -154,3 +154,12 @@ const darkMode = ref(true/false)
 >
 >const textClasses = computed(() => props.active ? 'font-semibold' : 'font-normal') # <div> in the subcompent which in ./compents/Sidebar/Left/Tab.vue
 >```
+
+10. Right Sidebar Components
+> ```bush
+> # box
+> ./components/Right/index.vue
+> # Subcomponents
+> ./components/Right/PreviewCard
+> # index.vue // Some fixed content
+> # index.vue // For displaying dynamic data
