@@ -12,9 +12,13 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@types/node": "^18.16.19",
-    "nuxt": "^3.6.2"
+    "nuxt": "^3.6.2",
+    "prisma": "^5.0.0"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.0.18"
+    "@heroicons/vue": "^2.0.18",
+    "@prisma/client": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.1"
   }
 }
