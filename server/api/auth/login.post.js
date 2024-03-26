@@ -1,13 +1,14 @@
-import bcrypt from "bcrypt";
-import { getUserByUsername } from "../../db/users";
-import { generateTokens, sendRefreshToken } from "../../utils/jwt";
-import { userTransformer } from "@/server/transformers/user";
-import { createRefreshToken } from "@/server/db/refreshTokens";
+import { getUserByUsername } from "../../db/users.js"
+import bcrypt from "bcrypt"
+import { generateTokens, sendRefreshToken } from "../../utils/jwt.js"
+import { userTransformer } from "~~/server/transformers/user.js"
+import { createRefreshToken } from "../../db/refreshTokens.js"
+import { sendError } from "h3"
 
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
+    const body = await useBody(event)
 
-    const { username,password } = body
+    const { username, password } = body
 
     if (!username || !password) {
         return sendError(event, createError({
@@ -16,7 +17,6 @@ export default defineEventHandler(async (event) => {
         }))
     }
 
-    // Is the user registered
     const user = await getUserByUsername(username)
 
     if (!user) {
@@ -26,7 +26,6 @@ export default defineEventHandler(async (event) => {
         }))
     }
 
-    // Compare passwords
     const doesThePasswordMatch = await bcrypt.compare(password, user.password)
 
     if (!doesThePasswordMatch) {
@@ -36,22 +35,17 @@ export default defineEventHandler(async (event) => {
         }))
     }
 
-    // Gennerate Tokena
-    // Access token
-    // Refresh token
     const { accessToken, refreshToken } = generateTokens(user)
 
-    // Save it inside db
     await createRefreshToken({
         token: refreshToken,
-        userID: user.id
+        userId: user.id
     })
-    
-    // Add http only cookie
+
     sendRefreshToken(event, refreshToken)
 
     return {
-        access_token: accessToken,
-        user: userTransformer(user)
+        access_token: accessToken, user: userTransformer(user)
     }
-})
+
+}) 

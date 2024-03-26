@@ -1,5 +1,4 @@
 <template>
-    <!-- Twitter Logo -->
     <svg viewBox="0 0 24 24" class="text-blue-400 dark:text-white" fill="currentColor">
         <g>
             <path
@@ -8,9 +7,3 @@
         </g>
     </svg>
 </template>
-<script>
-export default {
-    name: '',
-}
-</script>
-<style scoped></style>
